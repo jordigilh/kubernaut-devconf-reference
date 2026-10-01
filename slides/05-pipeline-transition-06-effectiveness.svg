@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <!-- Transition frame 6: final six-card state. -->
+  <image href="z05-pipeline-6-phases.svg" x="0" y="0" width="1920" height="1080"/>
+  <rect x="80" y="85" width="1770" height="120" fill="white"/>
+  <text font-family="Arial, sans-serif" font-size="36px" font-weight="700"><tspan x="88" y="130" fill="#8E83E4">Remediation Pipeline:</tspan><tspan x="480" y="130" fill="#1A1A2E">Validation</tspan></text>
+  <text x="90" y="168" font-size="18px" fill="#6A6E73">6 phases, all CRD-native, all state in etcd, standard kubectl tooling</text>
+  <text x="40" y="1058" font-family="Arial, sans-serif" font-size="14px" font-weight="600" fill="#FFFFFF" id="devconf-page-number">11</text></svg>

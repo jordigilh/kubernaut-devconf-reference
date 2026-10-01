@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="Kubernaut DevConf.US reference deck: when your Kubernetes cluster fixes itself at 3am, and you can prove it did the right thing.">
+  <meta property="og:title" content="When Your Kubernetes Cluster Fixes Itself at 3am">
+  <meta property="og:description" content="Kubernaut DevConf.US reference deck">
+  <meta property="og:type" content="website">
+  <title>Kubernaut · DevConf.US reference deck</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #080b14;
+      --panel: rgba(18, 24, 41, 0.88);
+      --panel-solid: #121829;
+      --text: #f7f8fb;
+      --muted: #a7b0c5;
+      --accent: #8e83e4;
+      --accent-bright: #b4adff;
+      --line: rgba(255, 255, 255, 0.12);
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { min-height: 100%; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 8% 0%, rgba(142, 131, 228, 0.18), transparent 35rem),
+        radial-gradient(circle at 95% 100%, rgba(64, 102, 196, 0.12), transparent 32rem),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    button, a { font: inherit; }
+
+    button, .action-link {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.06);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+    }
+
+    button:hover, .action-link:hover,
+    button:focus-visible, .action-link:focus-visible {
+      background: rgba(142, 131, 228, 0.2);
+      border-color: rgba(180, 173, 255, 0.72);
+      outline: none;
+    }
+
+    button:active, .action-link:active { transform: translateY(1px); }
+
+    .deck {
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      min-width: 0;
+      min-height: 100svh;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1.5rem;
+      min-width: 0;
+      padding: clamp(1rem, 2.5vw, 2rem) clamp(1rem, 4vw, 4rem) 1rem;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.5rem;
+      color: var(--accent-bright);
+      font-size: 0.68rem;
+      font-weight: 750;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 52rem;
+      margin: 0;
+      font-size: clamp(1.05rem, 2vw, 1.65rem);
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+    }
+
+    .subtitle {
+      margin: 0.45rem 0 0;
+      color: var(--muted);
+      font-size: clamp(0.78rem, 1.2vw, 0.95rem);
+    }
+
+    .actions {
+      display: flex;
+      flex: 0 0 auto;
+      gap: 0.5rem;
+    }
+
+    .action-link, .actions button {
+      min-height: 2.35rem;
+      padding: 0.55rem 0.85rem;
+      font-size: 0.78rem;
+      white-space: nowrap;
+    }
+
+    .stage-area {
+      display: grid;
+      min-height: 0;
+      place-items: center;
+      padding: 0 clamp(0.75rem, 4vw, 4rem) 1rem;
+    }
+
+    .stage {
+      position: relative;
+      width: min(100%, 78rem);
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: clamp(0.4rem, 1vw, 0.9rem);
+      background: #000;
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+
+    @media (min-width: 681px) {
+      .stage {
+        width: min(100%, 78rem, calc((100svh - 18rem) * 16 / 9));
+      }
+    }
+
+    .deck:fullscreen {
+      display: grid;
+      grid-template-rows: 1fr;
+      background: #000;
+    }
+
+    .deck:fullscreen .topbar,
+    .deck:fullscreen .bottom { display: none; }
+
+    .deck:fullscreen .stage-area { padding: 0; }
+
+    .deck:fullscreen .stage {
+      width: 100vw;
+      max-height: 100svh;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .stage::after {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      content: "Loading deck…";
+      font-size: 0.9rem;
+    }
+
+    #slide {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #fff;
+    }
+
+    .nav-zone {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 18%;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      color: transparent;
+    }
+
+    .nav-zone:hover, .nav-zone:focus-visible { background: rgba(0, 0, 0, 0.08); }
+    .nav-zone.prev { left: 0; }
+    .nav-zone.next { right: 0; }
+
+    .stage-error {
+      position: absolute;
+      inset: 1rem;
+      display: none;
+      place-items: center;
+      padding: 2rem;
+      color: #fff;
+      text-align: center;
+      background: #1a1a2e;
+    }
+
+    .stage-error.visible { display: grid; }
+
+    .stage-meta {
+      display: none;
+    }
+
+    .stage-meta span {
+      padding: 0.35rem 0.55rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 0.35rem;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.55);
+      font-size: 0.7rem;
+      line-height: 1;
+      text-shadow: 0 1px 2px #000;
+    }
+
+    .bottom {
+      min-width: 0;
+      padding: 0 1rem clamp(0.8rem, 2vw, 1.5rem);
+    }
+
+    .progress-row {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      width: min(100%, 78rem);
+      min-width: 0;
+      margin: 0 auto 0.7rem;
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+
+    .progress {
+      height: 0.25rem;
+      flex: 1;
+      overflow: hidden;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .progress > span {
+      display: block;
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent), var(--accent-bright));
+      transition: width 180ms ease;
+    }
+
+    .thumbs {
+      display: flex;
+      gap: 0.5rem;
+      width: min(100%, 78rem);
+      min-width: 0;
+      margin: 0 auto;
+      padding: 0.15rem 0 0.4rem;
+      overflow-x: auto;
+      scrollbar-color: var(--accent) transparent;
+    }
+
+    .thumb {
+      position: relative;
+      flex: 0 0 clamp(5rem, 9vw, 8rem);
+      aspect-ratio: 16 / 9;
+      padding: 0;
+      overflow: hidden;
+      border-radius: 0.35rem;
+      background: #000;
+    }
+
+    .thumb img, .thumb object { display: block; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+
+    .thumb span {
+      position: absolute;
+      right: 0.25rem;
+      bottom: 0.2rem;
+      padding: 0.12rem 0.25rem;
+      border-radius: 0.2rem;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.7);
+      font-size: 0.6rem;
+    }
+
+    .thumb[aria-current="true"] {
+      border-color: var(--accent-bright);
+      box-shadow: 0 0 0 2px var(--accent);
+    }
+
+    .loading { opacity: 0.5; }
+
+    dialog {
+      max-width: min(34rem, calc(100vw - 2rem));
+      padding: 1.4rem;
+      border: 1px solid var(--line);
+      border-radius: 0.8rem;
+      color: var(--text);
+      background: var(--panel-solid);
+      box-shadow: var(--shadow);
+    }
+
+    dialog::backdrop { background: rgba(0, 0, 0, 0.7); }
+    dialog h2 { margin: 0 0 0.8rem; font-size: 1.05rem; }
+    dialog p { color: var(--muted); font-size: 0.88rem; line-height: 1.55; }
+    dialog kbd { padding: 0.1rem 0.35rem; border: 1px solid var(--line); border-radius: 0.25rem; color: var(--text); background: rgba(255,255,255,0.07); }
+    .dialog-close { margin-top: 0.5rem; padding: 0.5rem 0.8rem; }
+
+    @media (max-width: 680px) {
+      .deck {
+        display: flex;
+        flex-direction: column;
+        min-height: auto;
+      }
+
+      .topbar { align-items: stretch; flex-direction: column; gap: 0.8rem; }
+      .actions { justify-content: flex-start; }
+      .stage-area {
+        display: block;
+        flex: 0 0 auto;
+        padding: 0 0 1rem;
+      }
+      .stage { width: 100%; border-right: 0; border-left: 0; border-radius: 0; }
+      .subtitle { max-width: 32rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck" id="deck">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Public reference deck · DevConf.US</p>
+        <h1>When Your Kubernetes Cluster Fixes Itself at 3am</h1>
+        <p class="subtitle">And you can prove it did the right thing · Kubernaut</p>
+      </div>
+      <div class="actions" aria-label="Deck actions">
+        <button type="button" id="share-button">Copy link</button>
+        <button type="button" id="fullscreen-button">Full screen</button>
+        <button type="button" id="help-button" aria-label="Show keyboard shortcuts">?</button>
+      </div>
+    </header>
+
+    <main class="stage-area">
+      <div class="stage" id="stage" aria-live="polite">
+        <object id="slide" class="loading" type="image/svg+xml" aria-label=""></object>
+        <button class="nav-zone prev" type="button" aria-label="Previous slide"></button>
+        <button class="nav-zone next" type="button" aria-label="Next slide"></button>
+        <div class="stage-error" id="stage-error" role="alert">
+          This slide could not be loaded. If you opened the file directly, use a local web server or the GitHub Pages URL.
+        </div>
+        <div class="stage-meta" aria-hidden="true">
+          <span id="section-label">Opening</span>
+          <span id="slide-number">1 / 19</span>
+        </div>
+      </div>
+    </main>
+
+    <footer class="bottom">
+      <div class="progress-row">
+        <span id="slide-title">Loading…</span>
+        <div class="progress" aria-hidden="true"><span id="progress-fill"></span></div>
+        <span id="progress-label">1 / 19</span>
+      </div>
+      <nav class="thumbs" id="thumbs" aria-label="Slide navigation"></nav>
+    </footer>
+  </div>
+
+  <dialog id="help-dialog">
+    <h2>Navigate the deck</h2>
+    <p><kbd>←</kbd> <kbd>→</kbd> or <kbd>Space</kbd> move between slides. <kbd>Home</kbd> and <kbd>End</kbd> jump to the beginning or end. Press <kbd>F</kbd> for full screen. You can also click the left or right side of the slide, use the thumbnails, or swipe on a touch screen.</p>
+    <button class="dialog-close" type="button" id="close-help">Close</button>
+  </dialog>
+
+  <script src="slides.js"></script>
+  <script>
+    (() => {
+      const slides = window.DECK_SLIDES || [];
+      const image = document.getElementById('slide');
+      const stage = document.getElementById('stage');
+      const stageError = document.getElementById('stage-error');
+      const title = document.getElementById('slide-title');
+      const section = document.getElementById('section-label');
+      const slideNumber = document.getElementById('slide-number');
+      const progressLabel = document.getElementById('progress-label');
+      const progressFill = document.getElementById('progress-fill');
+      const thumbs = document.getElementById('thumbs');
+      const help = document.getElementById('help-dialog');
+      let current = 0;
+      let pointerStart = null;
+
+      const clamp = (value) => Math.max(0, Math.min(slides.length - 1, value));
+      const sourceFor = (slide) => `slides/${slide.file}`;
+
+      function slideFromHash() {
+        const match = location.hash.match(/(?:^#|&)slide=(\d+)/);
+        return match ? clamp(Number(match[1]) - 1) : 0;
+      }
+
+      function setHash(index) {
+        const next = `#slide=${index + 1}`;
+        if (location.hash !== next) history.replaceState(null, '', next);
+      }
+
+      function renderThumbs() {
+        thumbs.replaceChildren();
+        slides.forEach((slide, index) => {
+          const button = document.createElement('button');
+          button.className = 'thumb';
+          button.type = 'button';
+          button.title = `${index + 1}. ${slide.title}`;
+          button.setAttribute('aria-label', `Go to slide ${index + 1}: ${slide.title}`);
+          const preview = document.createElement('object');
+          preview.type = 'image/svg+xml';
+          preview.data = sourceFor(slide);
+          preview.setAttribute('aria-hidden', 'true');
+          button.append(preview);
+          const number = document.createElement('span');
+          number.textContent = index + 1;
+          button.append(number);
+          button.addEventListener('click', () => goTo(index));
+          thumbs.append(button);
+        });
+      }
+
+      function updateThumbs() {
+        [...thumbs.children].forEach((button, index) => {
+          button.setAttribute('aria-current', String(index === current));
+          if (index === current) {
+            const left = button.offsetLeft - (thumbs.clientWidth - button.offsetWidth) / 2;
+            thumbs.scrollTo({ left: Math.max(0, left), behavior: 'smooth' });
+          }
+        });
+      }
+
+      function goTo(index, updateUrl = true) {
+        if (!slides.length) return;
+        current = clamp(index);
+        const slide = slides[current];
+        image.classList.add('loading');
+        stageError.classList.remove('visible');
+        image.data = sourceFor(slide);
+        image.setAttribute('aria-label', `Slide ${current + 1}: ${slide.title}`);
+        title.textContent = slide.title;
+        section.textContent = slide.section;
+        slideNumber.textContent = `${current + 1} / ${slides.length}`;
+        progressLabel.textContent = `${current + 1} / ${slides.length}`;
+        progressFill.style.width = `${((current + 1) / slides.length) * 100}%`;
+        document.title = `${slide.title} · Kubernaut`;
+        updateThumbs();
+        if (updateUrl) setHash(current);
+
+        [current - 1, current + 1].forEach((index) => {
+          if (slides[index]) {
+            const preload = new Image();
+            preload.src = sourceFor(slides[index]);
+          }
+        });
+      }
+
+      function next() { goTo(current + 1); }
+      function previous() { goTo(current - 1); }
+
+      image.addEventListener('load', () => image.classList.remove('loading'));
+      image.addEventListener('error', () => stageError.classList.add('visible'));
+      document.querySelector('.prev').addEventListener('click', previous);
+      document.querySelector('.next').addEventListener('click', next);
+
+      stage.addEventListener('pointerdown', (event) => {
+        pointerStart = { x: event.clientX, y: event.clientY };
+      });
+      stage.addEventListener('pointerup', (event) => {
+        if (!pointerStart) return;
+        const dx = event.clientX - pointerStart.x;
+        const dy = event.clientY - pointerStart.y;
+        pointerStart = null;
+        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) dx < 0 ? next() : previous();
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) return;
+        if (event.key === 'ArrowRight' || event.key === 'PageDown' || event.key === ' ') { event.preventDefault(); next(); }
+        if (event.key === 'ArrowLeft' || event.key === 'PageUp') { event.preventDefault(); previous(); }
+        if (event.key === 'Home') { event.preventDefault(); goTo(0); }
+        if (event.key === 'End') { event.preventDefault(); goTo(slides.length - 1); }
+        if (event.key.toLowerCase() === 'f') toggleFullscreen();
+        if (event.key === 'Escape' && help.open) help.close();
+      });
+
+      async function toggleFullscreen() {
+        if (!document.fullscreenElement) await document.getElementById('deck').requestFullscreen?.();
+        else await document.exitFullscreen?.();
+      }
+
+      document.getElementById('fullscreen-button').addEventListener('click', toggleFullscreen);
+      document.getElementById('help-button').addEventListener('click', () => help.showModal());
+      document.getElementById('close-help').addEventListener('click', () => help.close());
+      document.getElementById('share-button').addEventListener('click', async () => {
+        const button = document.getElementById('share-button');
+        const original = button.textContent;
+        try {
+          await navigator.clipboard.writeText(location.href);
+          button.textContent = 'Link copied';
+        } catch {
+          button.textContent = 'Copy unavailable';
+        }
+        setTimeout(() => { button.textContent = original; }, 1600);
+      });
+      window.addEventListener('hashchange', () => goTo(slideFromHash(), false));
+
+      renderThumbs();
+      goTo(slideFromHash(), false);
+    })();
+  </script>
+</body>
+</html>

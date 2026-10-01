@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" font-family="'Arial', 'Arial', Arial, sans-serif">
+  <rect width="1920" height="1080" fill="#FFFFFF"/>
+
+  <!-- Red Hat chrome -->
+  <!-- Title -->
+  <text x="88" y="112" font-size="38px" font-weight="700" fill="#8E83E4">Anatomy of a RemediationWorkflow</text>
+  <text x="90" y="148" font-family="'Arial', Arial, sans-serif" font-size="18px" fill="#6A6E73">One CR connects signal classification, LLM workflow selection, and controlled execution.</text>
+
+  <!-- End-to-end sequence -->
+  <rect x="80" y="178" width="1760" height="66" rx="12" fill="#F5F5F5"/>
+  <circle cx="119" cy="211" r="18" fill="#007A87"/>
+  <text x="119" y="217" text-anchor="middle" font-size="16px" font-weight="700" fill="#FFFFFF">1</text>
+  <text x="150" y="217" font-size="18px" font-weight="700" fill="#151515">SP classifies signal</text>
+  <line x1="360" y1="211" x2="510" y2="211" stroke="#A3A6A9" stroke-width="2"/>
+  <polygon points="510,205 522,211 510,217" fill="#A3A6A9"/>
+  <circle cx="556" cy="211" r="18" fill="#5E35B1"/>
+  <text x="556" y="217" text-anchor="middle" font-size="16px" font-weight="700" fill="#FFFFFF">2</text>
+  <text x="587" y="217" font-size="18px" font-weight="700" fill="#151515">LLM evaluates workflow fit</text>
+  <line x1="870" y1="211" x2="1040" y2="211" stroke="#A3A6A9" stroke-width="2"/>
+  <polygon points="1040,205 1052,211 1040,217" fill="#A3A6A9"/>
+  <circle cx="1088" cy="211" r="18" fill="#8E83E4"/>
+  <text x="1088" y="217" text-anchor="middle" font-size="16px" font-weight="700" fill="#FFFFFF">3</text>
+  <text x="1120" y="217" font-size="18px" font-weight="700" fill="#151515">Workflow Execution runs it</text>
+  <text x="1750" y="217" text-anchor="end" font-size="13px" fill="#6A6E73">RemediationWorkflow CR</text>
+
+  <!-- Three anatomy panels -->
+  <rect x="80" y="270" width="560" height="570" rx="16" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.5"/>
+  <rect x="80" y="270" width="560" height="64" rx="16" fill="#5E35B1"/>
+  <rect x="80" y="318" width="560" height="16" fill="#5E35B1"/>
+  <text x="110" y="311" font-size="23px" font-weight="700" fill="#FFFFFF">1 · LLM selection prompt</text>
+  <text x="110" y="370" font-family="'Arial', Arial, sans-serif" font-size="15px" fill="#6A6E73">spec.description tells the LLM what the workflow does</text>
+  <text x="110" y="394" font-family="'Arial', Arial, sans-serif" font-size="15px" fill="#6A6E73">and when it is (or is not) a safe remediation choice.</text>
+  <rect x="105" y="420" width="510" height="305" rx="10" fill="#F5F3FA"/>
+  <text x="128" y="454" font-family="Menlo, Consolas, monospace" font-size="16px" font-weight="700" fill="#5E35B1">description:</text>
+  <text x="148" y="480" font-family="Menlo, Consolas, monospace" font-size="14px" fill="#151515">what: "Reverts a bad GitOps commit"</text>
+  <text x="148" y="510" font-family="Menlo, Consolas, monospace" font-size="14px" fill="#151515">whenToUse: &gt;-</text>
+  <text x="170" y="536" font-family="Menlo, Consolas, monospace" font-size="14px" fill="#333333">CrashLoop after a bad commit;</text>
+  <text x="170" y="558" font-family="Menlo, Consolas, monospace" font-size="14px" fill="#333333">ArgoCD / Flux will reconcile it.</text>
+  <text x="148" y="586" font-family="Menlo, Consolas, monospace" font-size="14px" fill="#151515">whenNotToUse: &gt;-</text>
+  <text x="170" y="612" font-family="Menlo, Consolas, monospace" font-size="14px" fill="#333333">No GitOps or no prior healthy</text>
+  <text x="170" y="634" font-family="Menlo, Consolas, monospace" font-size="14px" fill="#333333">commit to restore.</text>
+  <text x="148" y="662" font-family="Menlo, Consolas, monospace" font-size="14px" fill="#151515">preconditions: &gt;-</text>
+  <text x="170" y="688" font-family="Menlo, Consolas, monospace" font-size="14px" fill="#333333">GitOps active; repo accessible;</text>
+  <text x="170" y="710" font-family="Menlo, Consolas, monospace" font-size="14px" fill="#333333">prior healthy commit exists.</text>
+  <text x="110" y="766" font-size="17px" font-weight="700" fill="#5E35B1">Intent + guardrails → candidate fit</text>
+  <text x="110" y="799" font-family="'Arial', Arial, sans-serif" font-size="14px" fill="#6A6E73">Folded scalars keep long prompt text valid and readable.</text>
+
+  <rect x="680" y="270" width="560" height="570" rx="16" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.5"/>
+  <rect x="680" y="270" width="560" height="64" rx="16" fill="#007A87"/>
+  <rect x="680" y="318" width="560" height="16" fill="#007A87"/>
+  <text x="710" y="311" font-size="23px" font-weight="700" fill="#FFFFFF">2 · Classification match</text>
+  <text x="710" y="370" font-family="'Arial', Arial, sans-serif" font-size="15px" fill="#6A6E73">spec.labels declares the signal attributes this workflow</text>
+  <text x="710" y="394" font-family="'Arial', Arial, sans-serif" font-size="15px" fill="#6A6E73">supports; SP output is checked against these categories.</text>
+  <rect x="705" y="420" width="510" height="237" rx="10" fill="#EFF7F7"/>
+  <text x="728" y="454" font-family="Menlo, Consolas, monospace" font-size="16px" font-weight="700" fill="#007A87">labels:</text>
+  <text x="750" y="485" font-family="Menlo, Consolas, monospace" font-size="15px" fill="#151515">priority: "*"</text>
+  <text x="750" y="515" font-family="Menlo, Consolas, monospace" font-size="15px" fill="#151515">severity: [critical, high]</text>
+  <text x="750" y="545" font-family="Menlo, Consolas, monospace" font-size="14px" fill="#151515">component: [v1/ConfigMap, apps/v1/Deployment]</text>
+  <text x="750" y="575" font-family="Menlo, Consolas, monospace" font-size="15px" fill="#151515">environment: [staging, production]</text>
+  <text x="728" y="615" font-family="Menlo, Consolas, monospace" font-size="16px" font-weight="700" fill="#007A87">detectedLabels:</text>
+  <text x="750" y="641" font-family="Menlo, Consolas, monospace" font-size="16px" fill="#151515">gitOpsTool: "*"</text>
+  <text x="710" y="697" font-size="16px" font-weight="700" fill="#007A87">Example SP facts</text>
+  <rect x="710" y="713" width="128" height="34" rx="17" fill="#D9EEEE"/>
+  <text x="774" y="735" text-anchor="middle" font-size="13px" font-weight="600" fill="#00636D">critical</text>
+  <rect x="849" y="713" width="176" height="34" rx="17" fill="#D9EEEE"/>
+  <text x="937" y="735" text-anchor="middle" font-size="13px" font-weight="600" fill="#00636D">apps/v1/Deployment</text>
+  <rect x="1036" y="713" width="150" height="34" rx="17" fill="#D9EEEE"/>
+  <text x="1111" y="735" text-anchor="middle" font-size="13px" font-weight="600" fill="#00636D">gitOpsTool=argocd</text>
+  <text x="710" y="798" font-family="'Arial', Arial, sans-serif" font-size="14px" fill="#6A6E73">Wildcard "*" accepts any value for that match key.</text>
+
+  <rect x="1280" y="270" width="560" height="570" rx="16" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.5"/>
+  <rect x="1280" y="270" width="560" height="64" rx="16" fill="#8E83E4"/>
+  <rect x="1280" y="318" width="560" height="16" fill="#8E83E4"/>
+  <text x="1310" y="311" font-size="23px" font-weight="700" fill="#FFFFFF">3 · Workflow execution</text>
+  <text x="1310" y="370" font-family="'Arial', Arial, sans-serif" font-size="15px" fill="#6A6E73">spec.execution fixes how it runs, the code bundle,</text>
+  <text x="1310" y="394" font-family="'Arial', Arial, sans-serif" font-size="15px" fill="#6A6E73">required inputs, and the target execution cluster.</text>
+  <rect x="1305" y="420" width="510" height="285" rx="10" fill="#FFF2F2"/>
+  <text x="1328" y="454" font-family="Menlo, Consolas, monospace" font-size="15px" font-weight="700" fill="#8E83E4">execution:</text>
+  <text x="1350" y="480" font-family="Menlo, Consolas, monospace" font-size="14px" fill="#151515">engine: job</text>
+  <text x="1350" y="503" font-family="Menlo, Consolas, monospace" font-size="14px" fill="#151515">bundle: "quay.io/example/workflow@sha256:..."</text>
+  <text x="1350" y="526" font-family="Menlo, Consolas, monospace" font-size="14px" fill="#151515">serviceAccountName: git-revert-v2-runner</text>
+  <text x="1350" y="549" font-family="Menlo, Consolas, monospace" font-size="14px" font-weight="700" fill="#8E83E4">clusterId: hub</text>
+  <text x="1328" y="578" font-family="Menlo, Consolas, monospace" font-size="15px" font-weight="700" fill="#8E83E4">dependencies:</text>
+  <text x="1350" y="602" font-family="Menlo, Consolas, monospace" font-size="14px" fill="#151515">secrets:</text>
+  <text x="1372" y="624" font-family="Menlo, Consolas, monospace" font-size="14px" fill="#151515">- name: gitea-repo-creds</text>
+  <text x="1350" y="650" font-family="Menlo, Consolas, monospace" font-size="14px" fill="#151515">configMaps:</text>
+  <text x="1372" y="672" font-family="Menlo, Consolas, monospace" font-size="14px" fill="#151515">- name: app-settings</text>
+  <text x="1310" y="730" font-size="16px" font-weight="700" fill="#8E83E4">Payload &amp; dependency delivery</text>
+  <text x="1310" y="756" font-family="'Arial', Arial, sans-serif" font-size="14px" fill="#333333">WFE supplies target resource + workflow parameters.</text>
+  <text x="1310" y="782" font-family="'Arial', Arial, sans-serif" font-size="14px" fill="#333333">Job mounts deps; Tekton binds named workspaces.</text>
+  <text x="1310" y="808" font-family="'Arial', Arial, sans-serif" font-size="14px" font-weight="600" fill="#151515">clusterId picks where it runs, which may differ</text>
+  <text x="1310" y="829" font-family="'Arial', Arial, sans-serif" font-size="14px" fill="#6A6E73">from the signal’s source cluster.</text>
+
+  <!-- Outcome ribbon -->
+  <rect x="80" y="870" width="1760" height="88" rx="14" fill="#151515"/>
+  <text x="110" y="906" font-size="17px" font-weight="700" fill="#FFFFFF">The link across the deck</text>
+  <text x="110" y="934" font-family="'Arial', Arial, sans-serif" font-size="15px" fill="#E6E6E6">SP categories narrow the catalog → description lets the LLM judge remediation fit → execution settings turn the selected workflow into a controlled Job or PipelineRun.</text>
+  <text x="80" y="1000" font-family="'Arial', Arial, sans-serif" font-size="12px" fill="#A3A6A9">Example fields based on demo scenario git-revert-v2 and the RemediationWorkflow authoring guide.</text>
+<image x="85" y="10" width="30" height="30" href="kubernaut-site-mark.png" id="devconf-kubernaut-mark"/><text x="124" y="35" font-family="Arial, sans-serif" font-size="20px" font-weight="600" fill="#1A1A2E" id="devconf-kubernaut-label">Kubernaut</text><rect x="0" y="1012" width="1920" height="68" fill="#8E83E4" id="devconf-footer-band"/><text x="40" y="1058" font-family="Arial, sans-serif" font-size="14px" font-weight="600" fill="#FFFFFF" id="devconf-page-number">12</text><image x="1810" y="1015" width="58" height="60" href="devconf-logo.png" id="devconf-event-mark"/></svg>

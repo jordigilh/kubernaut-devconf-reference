@@ -1,0 +1,163 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" font-family="'Arial', 'Arial', Arial, sans-serif">
+  <defs>
+    <filter id="sh" x="-2%" y="-4%" width="104%" height="112%">
+      <feDropShadow dx="0" dy="3" stdDeviation="8" flood-color="#000" flood-opacity="0.08"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" viewBox="0 0 12 12" markerUnits="userSpaceOnUse" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#A3A6A9"/>
+    </marker>
+  </defs>
+
+  <rect width="1920" height="1080" fill="white"/>
+
+  <!-- RH Chrome -->
+  <text x="88" y="130" font-size="36px" font-weight="700" fill="#8E83E4">The Remediation Pipeline</text>
+  <text x="90" y="168" font-size="18px" fill="#6A6E73">6 phases, all CRD-native, all state in etcd, standard kubectl tooling</text>
+
+  <!-- Cards use fixed positions so each transition frame can reveal the next phase without moving the layout. -->
+
+  <!-- Phase 1: Ingestion -->
+  <g id="phase-ingestion" filter="url(#sh)">
+    <rect x="60" y="240" width="280" height="440" rx="14" fill="white"/>
+    <rect x="60" y="240" width="280" height="56" rx="14" fill="#151515"/>
+    <rect x="60" y="282" width="280" height="14" fill="#151515"/>
+    <circle cx="320" cy="268" r="16" fill="white" opacity="0.2"/>
+    <text x="320" y="274" text-anchor="middle" font-size="16px" font-weight="700" fill="white">1</text>
+    <text x="85" y="274" font-size="18px" font-weight="700" fill="white">Ingestion</text>
+
+    <text x="85" y="330" font-size="15px" font-weight="600" fill="#8E83E4">Entry points</text>
+    <text x="85" y="356" font-size="13px" font-weight="600" fill="#151515">Autonomous: Gateway</text>
+    <text x="85" y="377" font-size="12px" fill="#6A6E73">AlertManager / K8s Events</text>
+    <text x="85" y="403" font-size="13px" font-weight="600" fill="#151515">Interactive: API frontend</text>
+    <text x="85" y="424" font-size="12px" fill="#6A6E73">Console / API</text>
+
+    <line x1="85" y1="446" x2="315" y2="446" stroke="#F0F0F0" stroke-width="1"/>
+    <text x="85" y="473" font-size="15px" font-weight="600" fill="#8E83E4">Intake gate</text>
+    <text x="85" y="498" font-size="12px" fill="#151515">Owner-chain resolution</text>
+    <text x="85" y="519" font-size="12px" fill="#151515">Fingerprinting</text>
+    <text x="85" y="540" font-size="12px" fill="#151515">Scope check + deduplication</text>
+    <rect x="85" y="575" width="230" height="44" rx="8" fill="#F5F5F5"/>
+    <text x="200" y="602" text-anchor="middle" font-size="12px" font-weight="600" fill="#6A6E73">CRD: RemediationRequest</text>
+  </g>
+
+  <!-- Phase 2: Classification -->
+  <g id="phase-classification" filter="url(#sh)">
+    <rect x="360" y="240" width="280" height="440" rx="14" fill="white"/>
+    <rect x="360" y="240" width="280" height="56" rx="14" fill="#151515"/>
+    <rect x="360" y="282" width="280" height="14" fill="#151515"/>
+    <circle cx="620" cy="268" r="16" fill="white" opacity="0.2"/>
+    <text x="620" y="274" text-anchor="middle" font-size="16px" font-weight="700" fill="white">2</text>
+    <text x="385" y="274" font-size="18px" font-weight="700" fill="white">Classification</text>
+
+    <text x="385" y="330" font-size="15px" font-weight="600" fill="#8E83E4">Normalize + classify</text>
+    <text x="385" y="360" font-size="13px" fill="#151515">OPA/Rego severity rules</text>
+    <text x="385" y="383" font-size="13px" fill="#151515">Category and priority</text>
+    <text x="385" y="406" font-size="13px" fill="#151515">Workflow family mapping</text>
+
+    <line x1="385" y1="432" x2="615" y2="432" stroke="#F0F0F0" stroke-width="1"/>
+    <text x="385" y="462" font-size="15px" font-weight="600" fill="#8E83E4">Decision input</text>
+    <text x="385" y="489" font-size="13px" fill="#151515">Structured signal context</text>
+    <text x="385" y="512" font-size="13px" fill="#151515">Ready for AI investigation</text>
+    <rect x="385" y="575" width="230" height="44" rx="8" fill="#F5F5F5"/>
+    <text x="500" y="602" text-anchor="middle" font-size="12px" font-weight="600" fill="#6A6E73">CRD: SignalProcessing</text>
+  </g>
+
+  <!-- Phase 3: AI Analysis -->
+  <g id="phase-ai-analysis" filter="url(#sh)">
+    <rect x="660" y="240" width="280" height="440" rx="14" fill="white"/>
+    <rect x="660" y="240" width="280" height="56" rx="14" fill="#151515"/>
+    <rect x="660" y="282" width="280" height="14" fill="#151515"/>
+    <circle cx="920" cy="268" r="16" fill="white" opacity="0.2"/>
+    <text x="920" y="274" text-anchor="middle" font-size="16px" font-weight="700" fill="white">3</text>
+    <text x="685" y="274" font-size="18px" font-weight="700" fill="white">AI Analysis</text>
+
+    <text x="685" y="330" font-size="15px" font-weight="600" fill="#8E83E4">3-phase pipeline</text>
+    <text x="685" y="358" font-size="13px" fill="#151515">Investigate with native Go tools</text>
+    <text x="685" y="381" font-size="13px" fill="#151515">Enrich context, history, metrics</text>
+    <text x="685" y="404" font-size="13px" font-weight="600" fill="#0066CC">Use prior effectiveness context</text>
+    <text x="685" y="427" font-size="13px" fill="#151515">Select workflow from catalog</text>
+
+    <rect x="685" y="575" width="230" height="44" rx="8" fill="#F5F5F5"/>
+    <text x="800" y="602" text-anchor="middle" font-size="12px" font-weight="600" fill="#6A6E73">CRD: AiAnalysis</text>
+  </g>
+
+  <!-- Phase 4: Approval -->
+  <g id="phase-approval" filter="url(#sh)">
+    <rect x="960" y="240" width="280" height="440" rx="14" fill="white"/>
+    <rect x="960" y="240" width="280" height="56" rx="14" fill="#8E83E4"/>
+    <rect x="960" y="282" width="280" height="14" fill="#8E83E4"/>
+    <circle cx="1220" cy="268" r="16" fill="white" opacity="0.2"/>
+    <text x="1220" y="274" text-anchor="middle" font-size="16px" font-weight="700" fill="white">4</text>
+    <text x="985" y="274" font-size="18px" font-weight="700" fill="white">Approval</text>
+
+    <text x="985" y="330" font-size="15px" font-weight="600" fill="#8E83E4">Policy-gated</text>
+    <text x="985" y="360" font-size="13px" fill="#151515">Auto-approve low-risk actions</text>
+    <text x="985" y="383" font-size="13px" fill="#151515">Manual review via Slack/Console</text>
+    <text x="985" y="406" font-size="13px" fill="#151515">Operator override when needed</text>
+
+    <line x1="985" y1="432" x2="1215" y2="432" stroke="#F0F0F0" stroke-width="1"/>
+    <text x="985" y="462" font-size="15px" font-weight="600" fill="#8E83E4">Safety</text>
+    <text x="985" y="489" font-size="13px" fill="#151515">OPA/Rego + namespace RBAC</text>
+    <rect x="985" y="575" width="230" height="44" rx="8" fill="#F5F5F5"/>
+    <text x="1100" y="602" text-anchor="middle" font-size="12px" font-weight="600" fill="#6A6E73">CRD: RemediationApprovalReq</text>
+  </g>
+
+  <!-- Phase 5: Execution -->
+  <g id="phase-execution" filter="url(#sh)">
+    <rect x="1260" y="240" width="280" height="440" rx="14" fill="white"/>
+    <rect x="1260" y="240" width="280" height="56" rx="14" fill="#6A6E73"/>
+    <rect x="1260" y="282" width="280" height="14" fill="#6A6E73"/>
+    <circle cx="1520" cy="268" r="16" fill="white" opacity="0.2"/>
+    <text x="1520" y="274" text-anchor="middle" font-size="16px" font-weight="700" fill="white">5</text>
+    <text x="1285" y="274" font-size="18px" font-weight="700" fill="white">Execution</text>
+
+    <text x="1285" y="330" font-size="15px" font-weight="600" fill="#8E83E4">Workflow engines</text>
+    <text x="1285" y="360" font-size="13px" fill="#151515">Tekton Pipelines</text>
+    <text x="1285" y="383" font-size="13px" fill="#151515">Kubernetes Jobs</text>
+    <text x="1285" y="406" font-size="13px" fill="#151515">Ansible / AWX / AAP</text>
+
+    <line x1="1285" y1="432" x2="1515" y2="432" stroke="#F0F0F0" stroke-width="1"/>
+    <text x="1285" y="462" font-size="15px" font-weight="600" fill="#8E83E4">Security</text>
+    <text x="1285" y="489" font-size="13px" fill="#151515">Per-workflow ServiceAccount</text>
+    <text x="1285" y="512" font-size="13px" fill="#151515">Short-lived credentials</text>
+    <rect x="1285" y="575" width="230" height="44" rx="8" fill="#F5F5F5"/>
+    <text x="1400" y="602" text-anchor="middle" font-size="12px" font-weight="600" fill="#6A6E73">CRD: WorkflowExecution</text>
+  </g>
+
+  <!-- Phase 6: Effectiveness -->
+  <g id="phase-effectiveness" filter="url(#sh)">
+    <rect x="1560" y="240" width="280" height="440" rx="14" fill="white"/>
+    <rect x="1560" y="240" width="280" height="56" rx="14" fill="#63993D"/>
+    <rect x="1560" y="282" width="280" height="14" fill="#63993D"/>
+    <circle cx="1820" cy="268" r="16" fill="white" opacity="0.2"/>
+    <text x="1820" y="274" text-anchor="middle" font-size="16px" font-weight="700" fill="white">6</text>
+    <text x="1585" y="274" font-size="18px" font-weight="700" fill="white">Effectiveness</text>
+
+    <text x="1585" y="330" font-size="15px" font-weight="600" fill="#8E83E4">Verify</text>
+    <text x="1585" y="358" font-size="13px" fill="#151515">Alert resolution confirmed</text>
+    <text x="1585" y="381" font-size="13px" fill="#151515">Health + drift detection</text>
+    <text x="1585" y="404" font-size="13px" fill="#151515">Cooldown monitoring</text>
+
+    <line x1="1585" y1="430" x2="1815" y2="430" stroke="#F0F0F0" stroke-width="1"/>
+    <text x="1585" y="460" font-size="15px" font-weight="600" fill="#8E83E4">Learn</text>
+    <text x="1585" y="487" font-size="13px" fill="#151515">Effectiveness score (0-100%)</text>
+    <text x="1585" y="510" font-size="13px" fill="#0066CC">History feeds future AI analysis</text>
+    <rect x="1585" y="550" width="230" height="42" rx="8" fill="#F5F5F5"/>
+    <text x="1700" y="576" text-anchor="middle" font-size="11px" font-weight="600" fill="#6A6E73">CRD: EffectivenessAssessment</text>
+    <text x="1585" y="625" font-size="11px" fill="#A3A6A9">Human on the loop: NotificationRequest</text>
+  </g>
+
+  <!-- Fixed arrows keep the geometry identical across transition frames. -->
+  <g stroke="#A3A6A9" stroke-width="3" fill="none" marker-end="url(#arrow)">
+    <line x1="342" y1="460" x2="358" y2="460"/>
+    <line x1="642" y1="460" x2="658" y2="460"/>
+    <line x1="942" y1="460" x2="958" y2="460"/>
+    <line x1="1242" y1="460" x2="1258" y2="460"/>
+    <line x1="1542" y1="460" x2="1558" y2="460"/>
+  </g>
+
+  <rect x="60" y="720" width="1780" height="50" rx="10" fill="#F5F5F5"/>
+  <text x="960" y="752" text-anchor="middle" font-size="15px" font-weight="600" fill="#151515">6 phases  |  All communication via CRD status transitions  |  Every decision persisted  |  Standard kubectl tooling</text>
+  <text x="960" y="800" text-anchor="middle" font-size="12px" fill="#A3A6A9">Transition-ready: reveal one phase card at a time without moving the remaining cards</text>
+<image x="85" y="10" width="30" height="30" href="kubernaut-site-mark.png" id="devconf-kubernaut-mark"/><text x="124" y="35" font-family="Arial, sans-serif" font-size="20px" font-weight="600" fill="#1A1A2E" id="devconf-kubernaut-label">Kubernaut</text><rect x="0" y="1012" width="1920" height="68" fill="#8E83E4" id="devconf-footer-band"/><image x="1810" y="1015" width="58" height="60" href="devconf-logo.png" id="devconf-event-mark"/></svg>

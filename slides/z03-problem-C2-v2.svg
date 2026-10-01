@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" font-family="Arial, Arial, Arial, sans-serif">
+  <defs>
+    <filter id="shadow" x="-2%" y="-4%" width="104%" height="112%">
+      <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#000" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <rect width="1920" height="1080" fill="white"/>
+  
+  <!-- Chrome -->
+  <g transform="translate(0, 80)">
+
+  <!-- Title + subtitle -->
+  <text x="120" y="100" font-size="36" font-weight="700" fill="#8E83E4">The Industry Confirms It   and It's Getting Worse</text>
+  <text x="120" y="140" font-size="18" fill="#151515">Four independent studies (2024-2025) show the same pattern: remediation is the bottleneck, and teams are falling further behind.</text>
+
+  <!-- 4 stat cards in a 2x2 grid, full width -->
+
+  <!-- Row 1 -->
+  <!-- Stat 1: MTTR trend -->
+  <g>
+    <rect x="80" y="190" width="860" height="200" rx="12" fill="white" stroke="#F0F0F0" stroke-width="1"/>
+  </g>
+  <rect x="80" y="190" width="8" height="200" rx="4" fill="#8E83E4"/>
+  <text x="120" y="240" font-size="56" font-weight="700" fill="#8E83E4">82%</text>
+  <text x="120" y="280" font-size="20" fill="#151515">of organizations have MTTR over one hour</text>
+  <text x="120" y="316" font-size="15" fill="#6A6E73">Worsening trend: 47% (2021) → 64% (2022) → 74% (2023) → 82% (2024)</text>
+  <text x="120" y="372" font-size="12" fill="#A3A6A9">[1] Logz.io Observability Pulse 2024 (n=500+)</text>
+
+  <!-- Stat 2: Ignored alerts -->
+  <g>
+    <rect x="980" y="190" width="860" height="200" rx="12" fill="white" stroke="#F0F0F0" stroke-width="1"/>
+  </g>
+  <rect x="980" y="190" width="8" height="200" rx="4" fill="#8E83E4"/>
+  <text x="1020" y="240" font-size="56" font-weight="700" fill="#8E83E4">73%</text>
+  <text x="1020" y="280" font-size="20" fill="#151515">experienced outages linked to ignored alerts</text>
+  <text x="1020" y="316" font-size="15" fill="#6A6E73">Alert fatigue drives missed critical incidents at scale</text>
+  <text x="1020" y="372" font-size="12" fill="#A3A6A9">[2] Splunk State of Observability 2025 (n=1,855)</text>
+
+  <!-- Row 2 -->
+  <!-- Stat 3: Toil -->
+  <g>
+    <rect x="80" y="420" width="860" height="200" rx="12" fill="white" stroke="#F0F0F0" stroke-width="1"/>
+  </g>
+  <rect x="80" y="420" width="8" height="200" rx="4" fill="#8E83E4"/>
+  <text x="120" y="470" font-size="56" font-weight="700" fill="#8E83E4">30%</text>
+  <text x="120" y="510" font-size="20" fill="#151515">of engineering time spent on operational toil</text>
+  <text x="120" y="546" font-size="15" fill="#6A6E73">First rise in five years (up from 25%), despite AI investments</text>
+  <text x="120" y="602" font-size="12" fill="#A3A6A9">[3] Catchpoint SRE Report 2025 (n=301)</text>
+
+  <!-- Stat 4: Downtime cost -->
+  <g>
+    <rect x="980" y="420" width="860" height="200" rx="12" fill="white" stroke="#F0F0F0" stroke-width="1"/>
+  </g>
+  <rect x="980" y="420" width="8" height="200" rx="4" fill="#8E83E4"/>
+  <text x="1020" y="470" font-size="48" font-weight="700" fill="#8E83E4">~$2M/hr</text>
+  <text x="1020" y="510" font-size="20" fill="#151515">cost of high-impact IT outages</text>
+  <text x="1020" y="546" font-size="15" fill="#6A6E73">Median $76M/year   recovery speed directly correlates with business impact</text>
+  <text x="1020" y="602" font-size="12" fill="#A3A6A9">[4] New Relic Observability Forecast 2025 (n=1,700)</text>
+
+  <!-- Bottom bar -->
+  <rect x="80" y="670" width="1760" height="70" rx="12" fill="#151515"/>
+  <text x="960" y="700" text-anchor="middle" font-size="20" font-weight="600" fill="white">Every hour of manual remediation costs money, trust, and talent retention</text>
+  <text x="960" y="724" text-anchor="middle" font-size="14" fill="rgba(255,255,255,0.60)">This is the gap Kubernaut was built to close</text>
+
+</g>
+
+  <!-- ===== Red Hat Chrome ===== -->
+<image x="85" y="10" width="30" height="30" href="kubernaut-site-mark.png" id="devconf-kubernaut-mark"/><text x="124" y="35" font-family="Arial, sans-serif" font-size="20px" font-weight="600" fill="#1A1A2E" id="devconf-kubernaut-label">Kubernaut</text><rect x="0" y="1012" width="1920" height="68" fill="#8E83E4" id="devconf-footer-band"/><text x="40" y="1058" font-family="Arial, sans-serif" font-size="14px" font-weight="600" fill="#FFFFFF" id="devconf-page-number">4</text><image x="1810" y="1015" width="58" height="60" href="devconf-logo.png" id="devconf-event-mark"/></svg>

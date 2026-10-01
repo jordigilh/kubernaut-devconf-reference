@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <!-- Background: red top, white bottom band (matches title slide) -->
+  <rect width="1920" height="922" fill="#8E83E4"/>
+  <rect y="922" width="1920" height="158" fill="#FFFFFF"/>
+
+  <!-- Chrome: top-left accent (white on red) -->
+  <!-- Chrome: bottom-left accent (red on white) -->
+  <!-- Chrome: page number -->
+  <!-- Chrome: Fedora logo -->
+  <!-- Decorative horizontal line -->
+  <line x1="327" y1="220" x2="546" y2="220" stroke="#FFFFFF" stroke-width="1.5" stroke-opacity="0.5"/>
+
+  <!-- Title: Q&A prominent -->
+  <text x="327" y="320" font-family="'Arial', Arial, sans-serif" font-weight="700" font-size="72px" fill="#FFFFFF">Q&amp;A</text>
+
+  <!-- Resources subcategory -->
+  <text x="327" y="480" font-family="'Arial', Arial, sans-serif" font-weight="600" font-size="22px" fill="#FFFFFF" fill-opacity="0.7">Resources</text>
+  <line x1="327" y1="495" x2="1227" y2="495" stroke="#FFFFFF" stroke-width="1" stroke-opacity="0.25"/>
+
+  <g transform="translate(327, 520)">
+    <text x="0" y="0" font-family="'Arial', Arial, sans-serif" font-weight="600" font-size="15px" fill="#FFFFFF" fill-opacity="0.9">Website</text>
+    <text x="200" y="0" font-family="'Arial', Arial, sans-serif" font-weight="400" font-size="14px" fill="#FFFFFF" fill-opacity="0.65">https://kubernaut.ai</text>
+
+    <text x="0" y="36" font-family="'Arial', Arial, sans-serif" font-weight="600" font-size="15px" fill="#FFFFFF" fill-opacity="0.9">Documentation</text>
+    <text x="200" y="36" font-family="'Arial', Arial, sans-serif" font-weight="400" font-size="14px" fill="#FFFFFF" fill-opacity="0.65">https://jordigilh.github.io/kubernaut-docs/latest/</text>
+
+    <text x="0" y="72" font-family="'Arial', Arial, sans-serif" font-weight="600" font-size="15px" fill="#FFFFFF" fill-opacity="0.9">Demo Scenarios</text>
+    <text x="200" y="72" font-family="'Arial', Arial, sans-serif" font-weight="400" font-size="14px" fill="#FFFFFF" fill-opacity="0.65">https://github.com/jordigilh/kubernaut-demo-scenarios</text>
+
+    <text x="0" y="108" font-family="'Arial', Arial, sans-serif" font-weight="600" font-size="15px" fill="#FFFFFF" fill-opacity="0.9">Source Code</text>
+    <text x="200" y="108" font-family="'Arial', Arial, sans-serif" font-weight="400" font-size="14px" fill="#FFFFFF" fill-opacity="0.65">https://github.com/jordigilh/kubernaut</text>
+  </g>
+
+  <!-- "Red Hat" branding -->
+  <image x="85" y="10" width="30" height="30" href="kubernaut-site-mark.png" id="devconf-kubernaut-mark"/><text x="124" y="35" font-family="Arial, sans-serif" font-size="20px" font-weight="600" fill="#FFFFFF" id="devconf-kubernaut-label">Kubernaut</text><rect x="0" y="1012" width="1920" height="68" fill="#8E83E4" id="devconf-footer-band"/><text x="40" y="1058" font-family="Arial, sans-serif" font-size="14px" font-weight="600" fill="#FFFFFF" id="devconf-page-number">19</text><image x="1810" y="1015" width="58" height="60" href="devconf-logo.png" id="devconf-event-mark"/></svg>

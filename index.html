@@ -392,9 +392,10 @@
       const help = document.getElementById('help-dialog');
       let current = 0;
       let pointerStart = null;
+      const ASSET_VERSION = '2026-10-01-transition-logos';
 
       const clamp = (value) => Math.max(0, Math.min(slides.length - 1, value));
-      const sourceFor = (slide) => `slides/${slide.file}`;
+      const sourceFor = (slide) => `slides/${slide.file}?v=${ASSET_VERSION}`;
 
       function slideFromHash() {
         const match = location.hash.match(/(?:^#|&)slide=(\d+)/);
